@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
-@RequestMapping(value = "/validate")
+@RequestMapping(value = "/view")
 public class LoginServlet {
     
 	
@@ -58,8 +58,8 @@ public class LoginServlet {
 					origUrl = URLDecoder.decode(origUrl, "utf-8");
 				}
 				req.setAttribute("user", username);
+				resp.setCharacterEncoding("utf-8");
 				req.getRequestDispatcher("/WEB-INF/view/loginsuccess.jsp").forward(req, resp);
-				System.out.println("第一次登录，我要直接调用jsp");
 			}else {
 				backToLoginPage(req, resp, user, origUrl, "密码不正确");
 			}
@@ -76,4 +76,14 @@ public class LoginServlet {
 
 		req.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(req, resp);
 	}
+	
+	
+	@RequestMapping(value = "/logout")
+	public void loginOut(HttpServletRequest req , HttpServletResponse resp) throws IOException {
+		resp.setCharacterEncoding("utf-8");
+		resp.getWriter().write("<p style='color:\"blue\"'>logout success</p>" + "<a href=\"./login\">首页</a>");
+	}
+	
+	
+	
 }

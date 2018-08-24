@@ -7,24 +7,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body content="text/html; charset=UTF-8">
 	<%
-		String username = (String)request.getAttribute("user");
-		Date date = new Date();
-		int hours = date.getHours();
-		if (hours < 11 && hours >= 0) {
-			out.print("早上好，");
-		} else if (hours < 14) {
-			out.print("中午好，");
-		} else if (hours < 18) {
-			out.print("下午好，");
-		} else {
-			out.print("晚上好，");
-		}
-		out.print(username);
-		//2-10,11-13,14-17,18-1
+	String username = (String)request.getAttribute("user");
+	Date date = new Date();
+	int hours = date.getHours();
+	if (hours < 11 && hours >= 0) {
+		out.print("早上好，");
+	} else if (hours < 14) {
+		out.print("中午好，");
+	} else if (hours < 18) {
+		out.print("下午好，");
+	} else {
+		out.print("晚上好，");
+	}
+	out.print(username);
 	%>
 
-	<p><button onclick="javascript:window.location.href=('./logout')" >退出</button></p>
+	<p content="text/html; charset=UTF-8"><button onclick="javascript:window.location.href=('./logout')" >退出</button></p>
 </body>
 </html>
