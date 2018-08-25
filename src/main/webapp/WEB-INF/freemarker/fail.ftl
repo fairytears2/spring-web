@@ -5,7 +5,7 @@
     </head>
     <body>
     	<p>µÇÂ½Ê§°Ü</p>
-    	<form action="/spring-login/login.html">
+    	<form action="/spring-login/api/view/login.html">
 		<button type="submit">·µ»Ø</button>
     </body>
 </html>

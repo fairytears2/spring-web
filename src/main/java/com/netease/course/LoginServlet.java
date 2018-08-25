@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -48,10 +49,13 @@ public class LoginServlet {
 		UserDao userDao = context.getBean("userDao", UserDao.class);
 		user = userDao.select(username);
 		System.out.println(username);
+		HttpSession session = req.getSession();
 		if(user != null) {
 			if(password.equals(user.getUserPassword())) {
 				map.addAttribute("name",username);
 				map.addAttribute("password",password);
+				session.setAttribute("name", username);
+				session.setAttribute("password", password);
 				view = "user";
 			}else {
 				view = "fail";
@@ -62,13 +66,29 @@ public class LoginServlet {
 		((ConfigurableApplicationContext)context).close();
 		return view;
 	}
-	
+
 	
 	@RequestMapping(value = "/logout")
-	public void loginOut(HttpServletRequest req , HttpServletResponse resp) throws IOException {
-		resp.setCharacterEncoding("utf-8");
-		resp.getWriter().write("<p style='color:\"blue\"'>logout success</p>" + "<a href=\"./login\">Ê×Ò³</a>");
+	public void loginOut(HttpServletRequest req , HttpServletResponse resp) throws IOException, ServletException {
+		HttpSession session = req.getSession();
+		session.invalidate();
+		resp.sendRedirect("/spring-login/index.jsp");
 	}
-	
 		
+	@RequestMapping(value = "/login_success")
+	public String loginSuccess(HttpServletRequest req , HttpServletResponse resp ,ModelMap map) {
+		String view = null;
+		HttpSession session = req.getSession();
+		System.out.println(session.getAttribute("name"));
+		System.out.println(session.getAttribute("password"));
+		if(session.getAttribute("name")!=null) {
+			map.addAttribute("name",session.getAttribute("name"));
+			map.addAttribute("password",session.getAttribute("password"));
+			view  = "user";
+		}else {
+			view = "error";
+		}
+		return view;
+	}
+			
 }
