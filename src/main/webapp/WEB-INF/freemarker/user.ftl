@@ -1,6 +1,6 @@
 <html lang="en-US">
     <head>
-        <meta content="text/html; charset=utf-8" />
+        <meta content="text/html; charset=utf-8"/>
         <title>登陆成功</title>
     </head>
     <body>
